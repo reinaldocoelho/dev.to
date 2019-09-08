@@ -60,10 +60,10 @@ Then, you have to create a token on your dev.to account: https://dev.to/settings
 
 The following is simply a template that you may want to use for your own version of that repository.
 
-# \<YOUR NAME\>'s blog source
+# Reinaldo Coelho's blog source
 
-https://dev.to/\<YOUR DEV.TO NICKNAME\>
+https://dev.to/reinaldocoelho
 
 ## Blog posts
 
-- [\<BLOG POST NAME\>](https://dev.to/\<BLOG POST LINK\>)
+- [Reinaldo Coelho](https://dev.to/reinaldocoelho)
