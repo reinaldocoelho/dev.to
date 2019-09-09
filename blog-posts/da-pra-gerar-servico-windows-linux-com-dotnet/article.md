@@ -15,7 +15,7 @@ Vou explicar em seguida, todos os passos que fiz para que isso funcionasse utili
 
 Todo código apresentado abaixo está disponível no GitHub:
 
-* [dotnet-service-cross-platform](https://github.com/reinaldocoelho/dotnet-service-cross-platform)
+- [dotnet-service-cross-platform](https://github.com/reinaldocoelho/dotnet-service-cross-platform)
 
 ## O que é a biblioteca TopShelf
 
@@ -31,39 +31,39 @@ O código comum será um projeto console em dotnetcore (estou usando a versão 2
 
 A sequência inicial de comandos para criar o projeto será:
 
-```powershell
-c:\code\simple-service-counter > dotnet new console
+```
+c:\code\simple-service-counter> dotnet new console
 ```
 
 Em seguida adicionamos a referência ao TopShelf:
 
-```powershell
+```
 c:\code\simple-service-counter > dotnet add package Topshelf --version 4.1.0.177-develop
 ```
 
 Em seguida vamos a um detalhe importante, vamos ajustar o projeto para dar suporte a mais de um Framework, possibilitando que nosso build compile para ambas as plataformas.
 
-[Repare que a tag de projeto foi renomeada para “TargetFrameworks”, no plural, indicando que o projeto aceitará mais de um Framework.](./assets/image1.png)
+![Repare que a tag de projeto foi renomeada para “TargetFrameworks”, no plural, indicando que o projeto aceitará mais de um Framework.](./assets/image1.png 'Repare que a tag de projeto foi renomeada para “TargetFrameworks”, no plural, indicando que o projeto aceitará mais de um Framework.')
 
 Vamos criar uma classe (**ImplementacaoServico.cs**) que será nosso código do serviço. Nosso serviço será um simples contador, mas você poderá implementar o que precisar.
 
-[Classe com a implamentação do contador (nosso serviço Fake).](./assets/image2.png)
+![Classe com a implamentação do contador (nosso serviço Fake).](./assets/image2.png 'Classe com a implamentação do contador (nosso serviço Fake).')
 
 Vamos agora configurar a classe inicial do projeto console para utilizar o TopShelf e chamar nossa lógica.
 
-[Implementação simples do método Main, incluindo a chamada do serviço.](./assets/image3.png)
+![Implementação simples do método Main, incluindo a chamada do serviço.](./assets/image3.png 'Implementação simples do método Main, incluindo a chamada do serviço.')
 
 Perfeito, com esses poucos passos você pode executar seu projeto simplesmente para verificar se está funcionando como um console normal.
 
 Execute o comando abaixo para ver seu serviço executado como um console:
 
-```powershell
+```
 c:\code\simple-service-counter > dotnet run --framework net461 (ou netcoreapp2.1)
 ```
 
 Se tudo estiver correto, você deverá ter um resultado como este:
 
-[Resultado de console esperado se o código estiver correto.](./assets/image4.png)
+![Resultado de console esperado se o código estiver correto.](./assets/image4.png 'Resultado de console esperado se o código estiver correto.')
 
 Tudo OK até aqui? Então vamos seguir para gerar e instalar o serviço no Windows e em seguida no Linux.
 
@@ -73,27 +73,27 @@ Primeiramente vamos publicar nosso serviço apontando para o framework 4.6.1 que
 
 Execute o seguinte comando para gerar a publicação:
 
-```pws
+```
 c:\code\simple-service-counter > dotnet publish simple-service-counter.csproj -c Release -f net461 -o dist\windows --self-contained
 ```
 
 Agora vamos instala-lo no windows, para isso entre na pasta “dist\windows” dentro da pasta do projeto e digite:
 
-```pws
+```
 c:\code\simple-service-counter\dist\windows > simple-service-counter.exe install
 ```
 
 E você deverá ter a seguinte saída:
 
-[Saída esperada com a instalação correta do serviço.](./assets/image5.png)
+![Saída esperada com a instalação correta do serviço.](./assets/image5.png 'Saída esperada com a instalação correta do serviço.')
 
 Se você abrir o gerenciador de serviços do Windows, poderá iniciar e parar o serviço.
 
-[Serviço instalado já nos registros de serviços do windows. (neste momento pode ser iniciado e parado).](./assets/image6.png)
+![Serviço instalado já nos registros de serviços do windows. (neste momento pode ser iniciado e parado).](./assets/image6.png 'Serviço instalado já nos registros de serviços do windows. (neste momento pode ser iniciado e parado).')
 
 Para remover o serviço, somente digite:
 
-```pws
+```
 c:\code\simple-service-counter\dist\windows > simple-service-counter.exe uninstall
 ```
 
@@ -105,7 +105,7 @@ Para o Linux vamos fazer uma publicação utilizando dotnetcore 2.1 e publicar p
 
 Para gerar a publicação, execute o comando:
 
-```pws
+```
 c:\code\simple-service-counter > dotnet publish simple-service-counter.csproj -c Release -f netcoreapp2.1 -o dist\linux -r linux-x64 --self-contained
 ```
 
@@ -117,31 +117,31 @@ Copie o arquivo compactado para sua máquina Linux. ( Use o programa scp ou outr
 
 Já no Linux, descompacte o arquivo com o comando
 
-```bash
+```
 $ unzip <arquivo>.zip -d ~/meuservico
 ```
 
 Em seguida precisamos dar permissão de execução para o programa executável, então entre na pasta onde estão os arquivos e altere a permissão para:
 
-```bash
+```
 $ chmod 755 simple-service-counter
 ```
 
 Podemos agora testar se nosso console funciona simplesmente executando ele no Shell:
 
-```bash
+```
 $ ./simple-service-counter
 ```
 
 Veja que a saída de console do programa funciona conforme esperado.
 
-[Resultado funcional!](./assets/image7.png)
+![Resultado funcional!](./assets/image7.png 'Resultado funcional!')
 
-O que precisamos agora para torná-lo um serviço, que possa ser iniciado e parado nos padrões *systemd* é seguir os passos:
+O que precisamos agora para torná-lo um serviço, que possa ser iniciado e parado nos padrões _systemd_ é seguir os passos:
 
-1. Criar um arquivo de configuração em “*/etc/systemd/system/servico-counter.service*”, com o conteúdo: 
+1. Criar um arquivo de configuração em “_/etc/systemd/system/servico-counter.service_”, com o conteúdo:
 
-```ini
+```
 [Unit]
 Description=Servico contador
 After=network.target
@@ -156,29 +156,29 @@ WantedBy=multi-user.target
 
 2. Iniciar o serviço executando:
 
-```bash
+```
 $ sudo systemctl start servico-counter
 ```
 
 3. Verificar o status do serviço para verificar se está em execução, com o comando:
 
-```bash
+```
 $ sudo systemctl status servico-counter
 ```
 
 Esta checagem se estiver ok irá apresentar a seguinte saida:
 
-[O status apresenta tanto a situação, como um possível erro ou um trecho da saída para confirmar a execução.](./assets/image8.png)
+![O status apresenta tanto a situação, como um possível erro ou um trecho da saída para confirmar a execução.](./assets/image8.png 'O status apresenta tanto a situação, como um possível erro ou um trecho da saída para confirmar a execução.')
 
 4. Podemos definir para que ele seja iniciado com o boot se desejar, utilizando o comando:
 
-```bash
+```
 $ sudo systemctl enable servico-counter
 ```
 
 5. Podemos também pará-lo, com o comando:
 
-```bash
+```
 $ sudo systemctl stop servico-counter
 ```
 
