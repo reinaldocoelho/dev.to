@@ -2,7 +2,7 @@
   "name": "dev.to",
   "repository": {
     "type": "git",
-    "url": "https://github.com/reinaldo.coelho/dev.to.git"
+    "url": "https://github.com/reinaldocoelho/dev.to.git"
   },
   "scripts": {
     "prettier": "prettier",
