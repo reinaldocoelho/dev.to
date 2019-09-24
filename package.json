@@ -14,7 +14,7 @@
     "embedme:write": "yarn run embedme",
     "dev-to-git": "dev-to-git",
     "check": "yarn run embedme:check & yarn run prettier:check",
-    "build": "yarn run prettier:write"
+    "build": "yarn run embedme:write & yarn run prettier:write"
   },
   "dependencies": {
     "dev-to-git": "1.1.0",
