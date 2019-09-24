@@ -21,8 +21,8 @@ Se você não tem a necessidade de vez ou outra recriar sua máquina, provavelme
 
 Para o processo, vou utilizar basicamente:
 
-* Script PowerShell - Instalação de pacotes Windows.
-* Chocolatey.org - Gerenciador de pacotes para instalação de aplicativos.
+- Script PowerShell - Instalação de pacotes Windows.
+- Chocolatey.org - Gerenciador de pacotes para instalação de aplicativos.
 
 ## Começando
 
@@ -32,8 +32,8 @@ E agora, como você pode preparar seu ambiente novamente em 3 passos?
 
 ### 1 - Instando as Features do Windows
 
-* **NOTA:** A instalação de features do windows varia se você estiver tratando de uma versão Desktop ou Server, por isso vale dar uma lida [neste artigo](https://peter.hahndorf.eu/blog/WindowsFeatureViaCmd.html).
-* **NOTA2:** Este post está apresentando como tratar em Windows10 Desktop.
+- **NOTA:** A instalação de features do windows varia se você estiver tratando de uma versão Desktop ou Server, por isso vale dar uma lida [neste artigo](https://peter.hahndorf.eu/blog/WindowsFeatureViaCmd.html).
+- **NOTA2:** Este post está apresentando como tratar em Windows10 Desktop.
 
 Atualmente o powershell nos dá bastante poder em relação ao windows e nos permite instalar praticamente tudo via script.
 Para isso bastam 2 passos:
@@ -49,11 +49,11 @@ Abaixo segue o script básico que uso na minha máquina como desenvolvedor para 
 
 ### 2 - Instando o Chocolatey
 
-Estando com o windows ajustado, temos agora que instalar nosso gerenciador de pacotes, para que possamos instalar os aplicativos  que vamos usar em nosso ambiente.
+Estando com o windows ajustado, temos agora que instalar nosso gerenciador de pacotes, para que possamos instalar os aplicativos que vamos usar em nosso ambiente.
 
 No site do [chocolatey](https://chocolatey.org/install) você tem os passos mais recentes da instalação, mas se for utilizar a forma mais simples (com o repositório do nuget.org), é só executar o comando powershell de instalação.
 
-* **NOTA:** Sim, é possível instalar um repositório privado de programas, seja para você ou para a empresa, isso também se encontra na documentação do site.
+- **NOTA:** Sim, é possível instalar um repositório privado de programas, seja para você ou para a empresa, isso também se encontra na documentação do site.
 
 Para nosso exemplo, precisamos apenas executar o script:
 
@@ -61,7 +61,7 @@ Para nosso exemplo, precisamos apenas executar o script:
 // code/install-chocolatey.ps1
 ```
 
-* **Informação adicional:** O & antes dos comandos no Powershell é uma das formas de executar comandos console no script powershell.
+- **Informação adicional:** O & antes dos comandos no Powershell é uma das formas de executar comandos console no script powershell.
 
 ## Como encontrar programas
 
@@ -69,8 +69,8 @@ Uma das suas dúvidas neste momento pode ser "E como eu encontro meus programas?
 
 Imagine que você gostaria de saber por exemplo o que existem de opções relacionadas a office no repositório, então você poderia pesquisar com o comando abaixo:
 
-```
-& choco search office
+```txt
+// code/chocolatey-search.txt
 ```
 
 Você terá um resultado parecido com:
@@ -81,13 +81,13 @@ Você terá um resultado parecido com:
 
 Outras opções principais de comando no chocolatey são:
 
-* *choco install [nome do pacote]* - Instala o programa.
-* *choco uninstall [nome do pacote]* - Remove o programa.
-* *choco update [nome do pacote]* - Atualiza o programa.
+- _choco install [nome do pacote]_ - Instala o programa.
+- _choco uninstall [nome do pacote]_ - Remove o programa.
+- _choco update [nome do pacote]_ - Atualiza o programa.
 
 É possível também utilizar algumas abreviações como por exemplo:
 
-* *cup all -y* - Atualiza todos os programas que tiverem versão atualizada.
+- _cup all -y_ - Atualiza todos os programas que tiverem versão atualizada.
 
 ## Limitações
 
