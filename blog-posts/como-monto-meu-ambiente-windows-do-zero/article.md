@@ -133,9 +133,57 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 
 - **Informação adicional:** O & antes dos comandos no Powershell é uma das formas de executar comandos console no script powershell.
 
-## Como encontrar programas
+### 3 - Instalando os programas
 
-Uma das suas dúvidas neste momento pode ser "E como eu encontro meus programas?". O choco (apelido carinhoso do chocolatey) tem vários comandos úteis, um deles é o **search** que permite pesquisar no repositório.
+Agora que temos o windows atualizado e o chocolatey instalado, podemos colocar nossa lista de programas para instalar e ir tomar um café...
+
+```txt
+// code/install-programs.ps1
+
+## Programas basicos
+& cinst 7zip -y
+& cinst GoogleChrome -y
+& cinst ChocolateyGUI -y
+& cinst notepadplusplus -y
+
+## Office
+& cinst libreoffice -y
+
+## Desenvolvimento
+& cinst dotnetcore-sdk -y
+& cinst git -y
+& cinst sql-server-management-studio -y
+& cinst nodejs -y
+& cinst visualstudio2019community -y
+& cinst visualstudiocode -y
+& cinst kdiff3 -y
+
+## Meus Programas
+& cinst dropbox -y
+& cinst skype -y
+& cinst vlc -y
+& cinst slack -y
+
+## Jogos
+& cinst steam -y
+
+## Container
+& cinst docker -y
+& cinst docker-compose -y
+& cinst docker-machine -y
+& cinst docker-desktop -y
+
+## VMs as a Code
+& cinst terraform -y
+& cinst packer -y
+
+```
+
+Quando o script terminar, sua máquina estará pronta, com todos os programas que você tinha instalados.
+
+## Como encontrar novos programas
+
+Uma das suas dúvidas neste momento pode ser "E como eu encontro outros programas?". O choco (apelido carinhoso do chocolatey) tem vários comandos úteis, um deles é o **search** que permite pesquisar no repositório.
 
 Imagine que você gostaria de saber por exemplo o que existem de opções relacionadas a office no repositório, então você poderia pesquisar com o comando abaixo:
 
