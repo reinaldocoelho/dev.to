@@ -17,7 +17,7 @@
     "build": "yarn run embedme:write & yarn run prettier:write"
   },
   "dependencies": {
-    "dev-to-git": "1.1.0",
+    "dev-to-git": "^1.4.1",
     "embedme": "1.11.0",
     "prettier": "1.18.2"
   }
