@@ -14,11 +14,15 @@
     "embedme:write": "yarn run embedme",
     "dev-to-git": "dev-to-git",
     "check": "yarn run embedme:check & yarn run prettier:check",
-    "build": "yarn run embedme:write & yarn run prettier:write"
+    "build": "yarn run embedme:write & yarn run prettier:write",
+    "install-check-updates": "npm install -g npm-check-updates",
+    "check-updates": "ncu",
+    "update-dependencies": "ncu -u"
   },
   "dependencies": {
-    "dev-to-git": "^1.4.1",
-    "embedme": "1.11.0",
-    "prettier": "1.18.2"
+    "dev-to-git": "^1.4.8",
+    "embedme": "1.22.0",
+    "npm-check-updates": "^11.8.5",
+    "prettier": "2.4.1"
   }
 }
