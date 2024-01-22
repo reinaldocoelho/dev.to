@@ -36,7 +36,7 @@ There's a `dev-to-git.json` file where you can define an array of blog posts, e.
 This repository is made to **edit** a blog post. Whether it's published or just a draft, you **have to create it** on dev.to directly. Unfortunately, dev.to does not display the ID of the blog post on the page. So once it's created, you can open your browser console and paste the following code to retrieve the blog post ID:  
 `$('div[data-article-id]').getAttribute('data-article-id')`
 
-__ALERTA:__ Não está mais funcionando essa parte de identificação do ID!
+__AVISO:__ O comando acima só funciona se o artigo estiver publicado!
 
 ## How do I configure every blog post individually?
 
