@@ -15,16 +15,16 @@ Este artigo **não será um tutorial** que explica como configurar, instalar ou 
 ## Glossário
 
 1. Introdução
-    1.1 [O que é e-mail](#o-que-é-e-mail)
-    1.2 [Palavras chaves ao se falar de e-mails](#palavras-chaves-ao-se-falar-de-e-mails)
+   1.1 [O que é e-mail](#o-que-é-e-mail)
+   1.2 [Palavras chaves ao se falar de e-mails](#palavras-chaves-ao-se-falar-de-e-mails)
 2. Entendendo
-    2.1 [Como é um e-mail](#Como-é-um-e-mail)
-    2.2 [Como funciona a troca de e-mail](#Como-funciona-a-troca-de-e-mail)
-    2.3 [O que são e onde entram servidores de Anti-spam](#O-que-são-e-onde-entram-servidores-de-Anti-spam)
+   2.1 [Como é um e-mail](#Como-é-um-e-mail)
+   2.2 [Como funciona a troca de e-mail](#Como-funciona-a-troca-de-e-mail)
+   2.3 [O que são e onde entram servidores de Anti-spam](#O-que-são-e-onde-entram-servidores-de-Anti-spam)
 3. Mão na massa
-    3.1 [Usando Telnet para enviar um e-mail na unha](#Usando-Telnet-para-enviar-um-e-mail-na-unha)
+   3.1 [Usando Telnet para enviar um e-mail na unha](#Usando-Telnet-para-enviar-um-e-mail-na-unha)
 4. Conclusão
-    4.1 [Referências](#Referências)
+   4.1 [Referências](#Referências)
 
 ## O que é e-mail
 
@@ -34,16 +34,16 @@ Para um e-mail funcionar, basta que exista ao menos um servidor de e-mail (que c
 
 Alguns exemplos de clientes de e-mail são:
 
-* De terminal:
-  * [Mutt](http://www.mutt.org/)
-  * [Alpine](https://alpineapp.email/)
-* Gráficos:
-  * [Thunderbird](https://www.thunderbird.net/pt-BR/)
-  * [Outlook](https://www.microsoft.com/pt-br/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook)
-* Webmail:
-  * [enContact](https://www.encontact.com.br/)
-  * [Gmail](https://mail.google.com/)
-  * [Outlook Web](https://outlook.live.com/owa/)
+- De terminal:
+  - [Mutt](http://www.mutt.org/)
+  - [Alpine](https://alpineapp.email/)
+- Gráficos:
+  - [Thunderbird](https://www.thunderbird.net/pt-BR/)
+  - [Outlook](https://www.microsoft.com/pt-br/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook)
+- Webmail:
+  - [enContact](https://www.encontact.com.br/)
+  - [Gmail](https://mail.google.com/)
+  - [Outlook Web](https://outlook.live.com/owa/)
 
 ## Palavras chaves ao se falar de e-mails
 
@@ -52,23 +52,25 @@ Ao falarmos de e-mail parece ser simples e direto - escrevo o e-mail, envio e el
 Neste tópico, vou explicar esses termos e seus significados, e tentar deixar o mais claro possível o que cada um deles representa, para depois podermos junta-los e entender como cada um executa seu papel no todo.
 
 Iremos apresentar agora:
-* [EML](#eml)
-* [SMTP](#smtp)
-* [POP3](#pop3)
-* [IMAP](#imap)
-* [MX](#mx)
-* [SPF](#spf)
-* [DKIM](#dkim)
-* [DMARC](#dmarc)
+
+- [EML](#eml)
+- [SMTP](#smtp)
+- [POP3](#pop3)
+- [IMAP](#imap)
+- [MX](#mx)
+- [SPF](#spf)
+- [DKIM](#dkim)
+- [DMARC](#dmarc)
 
 ### EML
 
 A extensão de arquivo `.eml` é utilizada para representar um arquivo de e-mail - ou seja, um arquivo que contém dentro dele a estrutura de um e-mail -, e apesar de ser a estrutura "padrão" e mais comum, não é a única estrutura de e-mail existente, podendo ser encontradas outras extensões de arquivos que representam e-mails.
 
 Algumas outras que você pode encontrar são:
-* emlx - Utilizada pela [Apple Mail](https://en.wikipedia.org/wiki/Apple_Mail)
-* msg - Utilizada pelo [Microsoft Outlook](https://en.wikipedia.org/wiki/Microsoft_Outlook)
-* mbox/mbx - Utilizada pelo [Mozilla Thunderbird](https://en.wikipedia.org/wiki/Mozilla_Thunderbird), [Opera Mail](https://en.wikipedia.org/wiki/Opera_Mail), [Eudora](https://en.wikipedia.org/wiki/Eudora_(email_client)) e [KMail](https://en.wikipedia.org/wiki/KMail)
+
+- emlx - Utilizada pela [Apple Mail](https://en.wikipedia.org/wiki/Apple_Mail)
+- msg - Utilizada pelo [Microsoft Outlook](https://en.wikipedia.org/wiki/Microsoft_Outlook)
+- mbox/mbx - Utilizada pelo [Mozilla Thunderbird](https://en.wikipedia.org/wiki/Mozilla_Thunderbird), [Opera Mail](https://en.wikipedia.org/wiki/Opera_Mail), [Eudora](<https://en.wikipedia.org/wiki/Eudora_(email_client)>) e [KMail](https://en.wikipedia.org/wiki/KMail)
 
 E apesar de todas estas outras estruturas que representam e-mails, praticamente todos os clientes conseguem importar e exportar para o formato `.eml`, sendo assim, o formato mais utilizado para troca de e-mails entre clientes.
 
@@ -90,13 +92,13 @@ SMTP é um protocolo de texto simples, no qual um cliente SMTP fala com um servi
 
 Uma transação SMTP (após a conexão efetuada com o servidor) consiste em três sequências de comandos/respostas:
 
-* Comando __MAIL__, para estabelecer o endereço de retorno (Também referido como return-path, reverse-path, bounce address, mfrom, ou envelope sender). Nele normalmente é informado o endereço de e-mail do remetente.
-* Comando __RCPT__, para estabelecer o endereço do destinatário (Também referido como forward-path, envelope recipient, ou envelope to). Nele normalmente é informado o endereço de e-mail do destinatário.
-* Comando __DATA__ para sinalizar o início do texto da mensagem (No caso o conteúdo de texto EML do e-mail a ser enviado - Consiste em um cabeçalho de mensagem e um corpo de mensagem separados por uma linha vazia -). DATA é na verdade um grupo de comandos, e o servidor responde duas vezes: uma vez para o próprio comando DATA, para reconhecer que está pronto para receber o texto, e a segunda vez após a sequência de fim-de-dados (normalmente uma linha final é indicada por um `.`[ponto final]), para aceitar ou rejeitar a mensagem inteira.
+- Comando **MAIL**, para estabelecer o endereço de retorno (Também referido como return-path, reverse-path, bounce address, mfrom, ou envelope sender). Nele normalmente é informado o endereço de e-mail do remetente.
+- Comando **RCPT**, para estabelecer o endereço do destinatário (Também referido como forward-path, envelope recipient, ou envelope to). Nele normalmente é informado o endereço de e-mail do destinatário.
+- Comando **DATA** para sinalizar o início do texto da mensagem (No caso o conteúdo de texto EML do e-mail a ser enviado - Consiste em um cabeçalho de mensagem e um corpo de mensagem separados por uma linha vazia -). DATA é na verdade um grupo de comandos, e o servidor responde duas vezes: uma vez para o próprio comando DATA, para reconhecer que está pronto para receber o texto, e a segunda vez após a sequência de fim-de-dados (normalmente uma linha final é indicada por um `.`[ponto final]), para aceitar ou rejeitar a mensagem inteira.
 
-Além disso, o cliente SMTP pode usar o comando __VRFY__ para verificar se um nome de usuário ou alias de e-mail é válido, ou o comando __EXPN__ para expandir um nome de lista de distribuição.
+Além disso, o cliente SMTP pode usar o comando **VRFY** para verificar se um nome de usuário ou alias de e-mail é válido, ou o comando **EXPN** para expandir um nome de lista de distribuição.
 
-Ao final do comando __DATA__, cada servidor pode responder com um código que pode ser positivo (2xx), negativo (4xx ou 5xx), ou interromper a conexão (1xx ou 3xx). Além disso, o servidor pode responder com uma mensagem de status de texto opcional, e o cliente SMTP pode responder com um comando __RSET__ para reiniciar a transação.
+Ao final do comando **DATA**, cada servidor pode responder com um código que pode ser positivo (2xx), negativo (4xx ou 5xx), ou interromper a conexão (1xx ou 3xx). Além disso, o servidor pode responder com uma mensagem de status de texto opcional, e o cliente SMTP pode responder com um comando **RSET** para reiniciar a transação.
 
 ## POP3
 
@@ -116,13 +118,13 @@ O IMAP é um protocolo de aplicação em camadas que permite que um cliente de e
 
 [MX](https://en.wikipedia.org/wiki/MX_record) é a sigla para `Mail Exchanger`, que especifica qual é o Servidor de e-mail responsável por aceitar mensagens através de um nome de domínio (@dominio.com por exemplo).
 
-O MX é um registro DNS que aponta um servidor de e-mail para aceitar mensagens para um domínio. Este registro de DNS contém o nome de domínio de um servidor de e-mail e um valor de prioridade, ou seja, ele permite que você tenha uma lista de servidores e ordene-os por prioridade. 
+O MX é um registro DNS que aponta um servidor de e-mail para aceitar mensagens para um domínio. Este registro de DNS contém o nome de domínio de um servidor de e-mail e um valor de prioridade, ou seja, ele permite que você tenha uma lista de servidores e ordene-os por prioridade.
 
 O MX é um registro de DNS obrigatório para que um servidor de e-mail possa receber mensagens de e-mail.
 
 O registro de DNS apresenta a seguinte estrutura:
 
-```text
+```txt
 Dominio         TTL     Classe  Tipo    Prioridade   Host do email
 example.com.    1936    IN      MX      10           onemail.example.com.
 example.com.    1936    IN      MX      10           twomail.example.com.
@@ -158,7 +160,7 @@ DKIM é um Internet Standard. Ele foi difinido na [RFC 6376](https://datatracker
 
 Exemplo de um cabeçalho DKIM inserido em um e-mail:
 
-```text
+```txt
 DKIM-Signature: v=1; a=rsa-sha256; d=example.net; s=brisbane;
      c=relaxed/simple; q=dns/txt; i=foo@eng.example.net;
      t=1117574938; x=1118006938; l=200;
@@ -202,6 +204,7 @@ Existem diversas formas de representar a estrutura do corpo de um e-mail, e uma 
 Um exemplo de um EML simples pode ser verificado na figura abaixo, onde se destaca a separação entre o cabeçalho e o corpo do e-mail:
 
 <!-- ![Estrutura de um EML](https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/email/assets/estrutura-eml.png) -->
+
 ![Estrutura de um EML](./assets/estrutura-eml.png)
 
 Todos os detalhes de como se formam a estrutura de um EML podem ser encontrados na [RFC 5322](https://tools.ietf.org/html/rfc5322).
@@ -210,16 +213,16 @@ Todos os detalhes de como se formam a estrutura de um EML podem ser encontrados 
 
 Quando falamos sobre a troca de e-mails e nos referimos as comuninações entre os servidores, estamos falando sobre algumas entidades conceituais que não citamos ainda, são elas:
 
-* MUA - Mail User Agent (Cliente de e-mail)
-  * Podem ser clientes de terminal, gráficos ou webmail.
-* MSA - Mail Submission Agent (Agente de envio de e-mail)
-  * Servidor de e-mail que recebe o pedido de envio do e-mail e prepara na fila de envio (normalmente o mesmo servidor do MTA).
-* MTA - Mail Transfer Agent (Agente de transferência de e-mail)
-  * Servidor que a partir do e-mail em fila, efetua a tentativa de entrega a cada um dos destinatários.
-* MDA - Mail Delivery Agent (Agente de entrega de e-mail)
-  * Servidor de e-mail que recebe o e-mail, e pode armazená-lo (junto ao MRA para obtenção via POP/IMAP posterior), ou entregar diretamente ao MUA do destinatário.
-* MRA - Mail Retrieval Agent (Agente de recuperação de e-mail)
-  * Servidor de e-mail que armazena os e-mails recebidos, e permite que o usuário os recupere via POP/IMAP.
+- MUA - Mail User Agent (Cliente de e-mail)
+  - Podem ser clientes de terminal, gráficos ou webmail.
+- MSA - Mail Submission Agent (Agente de envio de e-mail)
+  - Servidor de e-mail que recebe o pedido de envio do e-mail e prepara na fila de envio (normalmente o mesmo servidor do MTA).
+- MTA - Mail Transfer Agent (Agente de transferência de e-mail)
+  - Servidor que a partir do e-mail em fila, efetua a tentativa de entrega a cada um dos destinatários.
+- MDA - Mail Delivery Agent (Agente de entrega de e-mail)
+  - Servidor de e-mail que recebe o e-mail, e pode armazená-lo (junto ao MRA para obtenção via POP/IMAP posterior), ou entregar diretamente ao MUA do destinatário.
+- MRA - Mail Retrieval Agent (Agente de recuperação de e-mail)
+  - Servidor de e-mail que armazena os e-mails recebidos, e permite que o usuário os recupere via POP/IMAP.
 
 Vamos desenhar uma sequência de troca de e-mails entre dois usuários, para entendermos como funciona a troca de e-mails entre os servidores.
 
@@ -255,6 +258,7 @@ Vamos desenhar uma sequência de troca de e-mails entre dois usuários, para ent
     MDA -->> MRA: Armazena e-mail
     MRA -->> B: Notifica recebimento de e-mail
 ```
+
 O processo acima pode se repetir para cada destinatário de e-mail individualmente (principalmente se a entrega é referente a domínios diferentes).
 
 ## O que são e onde entram servidores de Anti-spam
@@ -272,47 +276,57 @@ Abaixo mostrarei como você pode enviar um e-mail diretamente do seu terminal pa
 Para esse exemplo vamos precisar de alguns pré-requisitos:
 
 1. Ter o cliente Telnet instalado (Windows ou Linux)
-    1.1. Caso vá efetuar conexão num servidor com criptografia, precisa também do programa openssl instalado
+   1.1. Caso vá efetuar conexão num servidor com criptografia, precisa também do programa openssl instalado
 2. Ter acesso a um servidor de e-mail que aceite conexões na porta 25 (ou 587 se for necessário logar com usuário e senha)
 3. Ter um endereço de e-mail válido para enviar e receber o e-mail de teste
 
 Primeiro, precisamos nos conectar via telnet ao servidor de e-mail
 
-Para um modo simples, sem conexão criptografada, podemos apenas apontar para o servidor e porta para solicitar conexão: 
+Para um modo simples, sem conexão criptografada, podemos apenas apontar para o servidor e porta para solicitar conexão:
+
 ```bash
 ## Iniciar efetuando a chamada do telnet para o servidor de e-mail e a porta
 $ telnet <endereco_servidor> <porta> ## Exemplo: telnet localhost 25
 ```
+
 Para o caso de conexão criptografada, precisamos informar que queremos iniciar a conexão com o comando `STARTTLS` por exemplo:
+
 ```bash
-$ openssl s_client -starttls smtp -connect <endereco_servidor>:<porta> -crlf -ign_eof  
+$ openssl s_client -starttls smtp -connect <endereco_servidor>:<porta> -crlf -ign_eof
 ## Quando for necessário logar STARTTLS
 ## Exemplo: openssl s_client -starttls smtp -connect localhost:25 -crlf -ign_eof
 ```
+
 Após conectado no seridor, é necessário efetuar um comando de HandShake para iniciar a comunicação, e o comando mais comum é o `EHLO` ou `HELO`:
+
 ```bash
 EHLO meuservidor.com
 ```
+
 Caso o servidor necessite de autenticação (usuário e senha), os mesmos devem ser informados através do comando `AUTH LOGIN`, e em seguida informando o usuário e senha em base64:
+
 ```bash
 AUTH LOGIN # Informa que irá informar a autenticação
 bWV1dXN1YXJpb0BtZXVkb21pbmlvLmNvbQ== ## Login em base64
 TWFuZUFjaG91UXVlRXVJYVBhc3NhckFTZW5oYU5laA== ## Senha em base64
 ```
+
 Existem outros tipos de autenticação que podem ser informados como `AUTH PLAIN` (Para dados em Plain Text) ou `AUTH CRAM-MD5` (Para dados em MD5).
 
 Em seguida, precisamos informar o remetente da mensagem:
+
 ```bash
 MAIL FROM: <teste@meudominio.com.br> # Informa o remetente. Obrigatório informar < e > para indicar o endereço.
 ```
 
-Na linha seguinte, informamos o endereço do destinatário (Caso queira enviar para mais de um destinatário, basta repetir o comando `RCPT TO:` para cada um dos destinatários): 
+Na linha seguinte, informamos o endereço do destinatário (Caso queira enviar para mais de um destinatário, basta repetir o comando `RCPT TO:` para cada um dos destinatários):
+
 ```bash
-## Destinatário
-RCPT TO: <destinatario@dominio-dele.com>
+RCPT TO: <destinatario@dominio-dele.com> # Informa o destinatário da mensagem neste servidor.
 ```
 
 E finalmente para encerrar precisamos enviar o conteúdo do e-mail (no caso o conteúdo do EML), e para isso usamos o comando `DATA`:
+
 ```bash
 DATA # Ao informar ele deve apresentar um retorno com o código 354
 # Todo conteúdo abaixo é a estrutura de um EML normal, e deve ser enviado linha a linha.
@@ -331,11 +345,13 @@ Content-Type: text/html; charset="ISO-8859-1"
 </html>
 . ## O ponto é quem efetua a conclusão do processo e dispara o envio.
 ```
+
 Ao entrar com o comando `DATA` e pressionar `ENTER`, o servidor irá aguardar que você envie todo o conteúudo do e-mail, e só irá considerar que você concluiu quando encontrar uma linha final contendo apenas um `.`, o que indica o final do conteúdo EML a ser enviado.
 
 Caso não queira efetuar todos esses passos na mão, existem servidores onde você pode efetuar o envio de e-mails para testes, como por exemplo o [MxtoolBox](https://mxtoolbox.com/SuperTool.aspx), onde você pode informar o servidor de e-mail e ele executará um teste.
 
 Alguns outros comandos também existem, porém são menos comuns, por exemplo:
+
 ```bash
 VRFY <usuario> # Verifica se o usuário existe no servidor
 EXPN <lista> # Expande uma lista de distribuição
@@ -346,40 +362,42 @@ QUIT # Encerra a conexão
 ```
 
 Um exemplo de envio simples efetuado manualmente por telnet seria:
+
 <!-- ![Figura de exemplo de envio por telnet](https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/email/assets/envio-por-telnet-exemplo.png) -->
+
 ![Figura de exemplo de envio por telnet](./assets/envio-por-telnet-exemplo.png)
 
 ## Referências
 
-* Explicação Wikipedia
-    * [Email](https://en.wikipedia.org/wiki/Email)
-    * [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol)
-    * [POP3](https://en.wikipedia.org/wiki/Post_Office_Protocol)
-    * [IMAP](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol)
-    * [MX](https://en.wikipedia.org/wiki/MX_record)
-    * [SPF](https://en.wikipedia.org/wiki/Sender_Policy_Framework)
-    * [DKIM](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
-    * [DMARC](https://en.wikipedia.org/wiki/DMARC)
-* RFCs referentes a e-mail:
-    * [RFC 5321](https://tools.ietf.org/html/rfc5321)
-    * [RFC 5322](https://tools.ietf.org/html/rfc5322)
-    * [RFC 2045](https://tools.ietf.org/html/rfc2045)
-    * [RFC 2046](https://tools.ietf.org/html/rfc2046)
-    * [RFC 2047](https://tools.ietf.org/html/rfc2047)
-    * [RFC 2049](https://tools.ietf.org/html/rfc2049)
-    * [RFC 2821](https://tools.ietf.org/html/rfc2821)
-    * [RFC 2822](https://tools.ietf.org/html/rfc2822)
-    * [RFC 3461](https://tools.ietf.org/html/rfc3461)
-    * [RFC 3462](https://tools.ietf.org/html/rfc3462)
-    * [RFC 3463](https://tools.ietf.org/html/rfc3463)
-    * [RFC 3464](https://tools.ietf.org/html/rfc3464)
-    * [RFC 3465](https://tools.ietf.org/html/rfc3465)
-    * [RFC 3466](https://tools.ietf.org/html/rfc3466)
-    * [RFC 3467](https://tools.ietf.org/html/rfc3467)
-    * [RFC 3468](https://tools.ietf.org/html/rfc3468)
-    * [RFC 3469](https://tools.ietf.org/html/rfc3469)
-    * [RFC 4409](https://tools.ietf.org/html/rfc4409)
-* Outros sites e documentos:
-    * [Comandos de SMTP](https://mailtrap.io/blog/smtp-commands-and-responses/)
-    * [MxtoolBox](https://mxtoolbox.com/SuperTool.aspx) - Site para testes de e-mail
-    * [Spam Assassin](https://spamassassin.apache.org/) - Servidor de Anti-spam
+- Explicação Wikipedia
+  - [Email](https://en.wikipedia.org/wiki/Email)
+  - [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol)
+  - [POP3](https://en.wikipedia.org/wiki/Post_Office_Protocol)
+  - [IMAP](https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol)
+  - [MX](https://en.wikipedia.org/wiki/MX_record)
+  - [SPF](https://en.wikipedia.org/wiki/Sender_Policy_Framework)
+  - [DKIM](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
+  - [DMARC](https://en.wikipedia.org/wiki/DMARC)
+- RFCs referentes a e-mail:
+  - [RFC 5321](https://tools.ietf.org/html/rfc5321)
+  - [RFC 5322](https://tools.ietf.org/html/rfc5322)
+  - [RFC 2045](https://tools.ietf.org/html/rfc2045)
+  - [RFC 2046](https://tools.ietf.org/html/rfc2046)
+  - [RFC 2047](https://tools.ietf.org/html/rfc2047)
+  - [RFC 2049](https://tools.ietf.org/html/rfc2049)
+  - [RFC 2821](https://tools.ietf.org/html/rfc2821)
+  - [RFC 2822](https://tools.ietf.org/html/rfc2822)
+  - [RFC 3461](https://tools.ietf.org/html/rfc3461)
+  - [RFC 3462](https://tools.ietf.org/html/rfc3462)
+  - [RFC 3463](https://tools.ietf.org/html/rfc3463)
+  - [RFC 3464](https://tools.ietf.org/html/rfc3464)
+  - [RFC 3465](https://tools.ietf.org/html/rfc3465)
+  - [RFC 3466](https://tools.ietf.org/html/rfc3466)
+  - [RFC 3467](https://tools.ietf.org/html/rfc3467)
+  - [RFC 3468](https://tools.ietf.org/html/rfc3468)
+  - [RFC 3469](https://tools.ietf.org/html/rfc3469)
+  - [RFC 4409](https://tools.ietf.org/html/rfc4409)
+- Outros sites e documentos:
+  - [Comandos de SMTP](https://mailtrap.io/blog/smtp-commands-and-responses/)
+  - [MxtoolBox](https://mxtoolbox.com/SuperTool.aspx) - Site para testes de e-mail
+  - [Spam Assassin](https://spamassassin.apache.org/) - Servidor de Anti-spam

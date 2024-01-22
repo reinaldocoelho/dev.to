@@ -1,7 +1,7 @@
 ---
 published: true
 title: 'Como monto meu ambiente Windows do Zero'
-cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/como-monto-meu-ambiente-windows-do-zero/assets/top.jpg'
+cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/como-monto-meu-ambiente-windows-do-zero/assets/top.jpg'
 description: 'Como instalar e montar sua máquina windows de forma rápida e prática logo após a formatação.'
 tags: windows, chocolatey, install
 series:

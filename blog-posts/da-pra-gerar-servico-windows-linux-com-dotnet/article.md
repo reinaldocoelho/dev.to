@@ -1,7 +1,7 @@
 ---
 published: true
 title: 'Dá pra gerar serviço Windows/Linux com .Net?'
-cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/da-pra-gerar-servico-windows-linux-com-dotnet/assets/topshelf.png'
+cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/da-pra-gerar-servico-windows-linux-com-dotnet/assets/topshelf.png'
 description: 'tags: topshelf, dotnetcore, services, windows, linux'
 series:
 canonical_url:
