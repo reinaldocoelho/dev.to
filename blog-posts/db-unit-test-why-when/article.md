@@ -1,10 +1,10 @@
 ---
 published: false
-title: "Teste unitário de SQL Server, porque, quando e como fazer"
-cover_image: "https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/NAME-OF-YOUR-BLOG-POST/assets/your-asset.png"
-description: "Description of the article"
+title: 'Teste unitário de SQL Server, porque, quando e como fazer'
+cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/NAME-OF-YOUR-BLOG-POST/assets/your-asset.png'
+description: 'Description of the article'
 tags: tag1, tag2, tag3
-series: 
+series:
 canonical_url:
 ---
 

@@ -1,8 +1,8 @@
 ---
 published: true
-title: "Como monto meu ambiente Windows do Zero"
-cover_image: "https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/como-monto-meu-ambiente-windows-do-zero/assets/top.jpg"
-description: "Como instalar e montar sua máquina windows de forma rápida e prática logo após a formatação."
+title: 'Como monto meu ambiente Windows do Zero'
+cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/como-monto-meu-ambiente-windows-do-zero/assets/top.jpg'
+description: 'Como instalar e montar sua máquina windows de forma rápida e prática logo após a formatação.'
 tags: windows, chocolatey, install
 series:
 canonical_url:
@@ -140,7 +140,7 @@ Agora que temos o windows atualizado e o chocolatey instalado, podemos colocar n
 ```txt
 // code/install-programs.ps1
 
-## Programas basicos
+﻿## Programas basicos
 & cinst 7zip -y
 & cinst GoogleChrome -y
 & cinst ChocolateyGUI -y

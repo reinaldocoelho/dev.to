@@ -1,8 +1,8 @@
 ---
 published: false
-title: "Conhecendo o System.CommandLine"
-cover_image: "https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/charp-conhecendo-system-command-line/assets/your-asset.png"
-description: "Artigo que visa apresentar o "
+title: 'Conhecendo o System.CommandLine'
+cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/master/blog-posts/charp-conhecendo-system-command-line/assets/your-asset.png'
+description: 'Artigo que visa apresentar o '
 tags: tag1, tag2, tag3
 series:
 canonical_url:
