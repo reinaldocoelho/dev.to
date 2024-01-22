@@ -1,10 +1,10 @@
 ---
-published: false
+published: true
 title: 'Entendendo definitivamente o e-mail'
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/email/assets/understanding-email.png'
 description: 'Tudo que você precisa saber para entender e-mail de uma vez por toddas'
-tags: email, smtp, pop3, imap, mx, dns, spf, dkim, dmarc
-series: understanding-email
+tags: email
+series: 
 canonical_url: null
 ---
 
@@ -15,16 +15,16 @@ Este artigo **não será um tutorial** que explica como configurar, instalar ou 
 ## Glossário
 
 1. Introdução
-   1.1 [O que é e-mail](#o-que-é-e-mail)
-   1.2 [Palavras chaves ao se falar de e-mails](#palavras-chaves-ao-se-falar-de-e-mails)
+   1. [O que é e-mail](#o-que-é-e-mail)
+   2. [Palavras chaves ao se falar de e-mails](#palavras-chaves-ao-se-falar-de-e-mails)
 2. Entendendo
-   2.1 [Como é um e-mail](#Como-é-um-e-mail)
-   2.2 [Como funciona a troca de e-mail](#Como-funciona-a-troca-de-e-mail)
-   2.3 [O que são e onde entram servidores de Anti-spam](#O-que-são-e-onde-entram-servidores-de-Anti-spam)
+   1. [Como é um e-mail](#Como-é-um-e-mail)
+   2. [Como funciona a troca de e-mail](#Como-funciona-a-troca-de-e-mail)
+   3. [O que são e onde entram servidores de Anti-spam](#O-que-são-e-onde-entram-servidores-de-Anti-spam)
 3. Mão na massa
-   3.1 [Usando Telnet para enviar um e-mail na unha](#Usando-Telnet-para-enviar-um-e-mail-na-unha)
+   1. [Usando Telnet para enviar um e-mail na unha](#Usando-Telnet-para-enviar-um-e-mail-na-unha)
 4. Conclusão
-   4.1 [Referências](#Referências)
+   1. [Referências](#Referências)
 
 ## O que é e-mail
 
@@ -226,6 +226,10 @@ Quando falamos sobre a troca de e-mails e nos referimos as comuninações entre 
 
 Vamos desenhar uma sequência de troca de e-mails entre dois usuários, para entendermos como funciona a troca de e-mails entre os servidores.
 
+Figura:
+![Figura com Fluxo de envio de e-mail](./assets/fluxo-envio-email.png)
+
+Diagrama [MermaidJs](https://mermaid.js.org/):
 ```mermaid
     sequenceDiagram
 
