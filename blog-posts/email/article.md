@@ -1,11 +1,12 @@
 ---
+id: 1737840
 published: true
 title: 'Entendendo definitivamente o e-mail'
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/email/assets/understanding-email.png'
-description: 'Tudo que você precisa saber para entender e-mail de uma vez por toddas'
+description: 'Tudo que você precisa saber para entender e-mail de uma vez por todas'
 tags: email
-series: 
-canonical_url: null
+series:
+canonical_url:
 ---
 
 Neste artigo vou compartilhar tudo que sei a respeito de e-mails, iniciando por uma visão geral do que é, como funciona a troca de e-mails, sua estrutura e o que mais eu conseguir organizar.
@@ -230,6 +231,7 @@ Figura:
 ![Figura com Fluxo de envio de e-mail](./assets/fluxo-envio-email.png)
 
 Diagrama [MermaidJs](https://mermaid.js.org/):
+
 ```mermaid
     sequenceDiagram
 

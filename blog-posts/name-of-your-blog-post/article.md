@@ -1,4 +1,5 @@
 ---
+devto_sync: false
 published: false
 title: 'Your title'
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/NAME-OF-YOUR-BLOG-POST/assets/your-asset.png'

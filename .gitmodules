@@ -1,0 +1,3 @@
+[submodule "blog-posts/mariadb-bluegreen/code"]
+	path = blog-posts/mariadb-bluegreen/code
+	url = https://github.com/reinaldocoelho/poc-mariadb-blue-green.git

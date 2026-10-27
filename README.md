@@ -1,71 +1,72 @@
-# One way publishing of your blog posts from a git repo to dev.to
-
-## First, what is dev.to?
-
-https://dev.to is a free and open source blogging platform for developers.
-
-> dev.to (or just DEV) is a platform where software developers write articles, take part in discussions, and build their professional profiles. We value supportive and constructive dialogue in the pursuit of great code and career growth for all members. The ecosystem spans from beginner to advanced developers, and all are welcome to find their place within our community.
-
-## Why would I want to put all my blog posts on a git repo?
-
-- Don't be afraid to mess up with one of your articles while editing it
-- Same good practices as when you're developing (format, commits, saving history, compare, etc)
-- Use prettier to format the markdown and all the code
-- Let people contribute to your article by creating a PR against it (tired of comments going sideways because of some typos? Just let people know they can make a PR at the end of your blog post)
-- Create code examples close to your blog post and make sure they're correct thanks to [Embedme](https://github.com/zakhenry/embedme) (_\*1_)
-
-_\*1: Embedme allows you to write code in actual files rather than your readme, and then from your Readme to make sure that your examples are matching those files._
-
-If you prefer not to use Prettier or Embed me, you can do so by simply removing them but I think it's a nice thing to have!
-
-## How do I choose which files I want to publish?
-
-There's a `dev-to-git.json` file where you can define an array of blog posts, e.g.
-
-```json
-[
-  {
-    "id": 12345,
-    "relativePathToArticle": "./blog-posts/name-of-your-blog-post/name-of-your-blog-post.md"
-  }
-]
-```
-
-## How can I find the ID of my blog post on dev.to?
-
-This repository is made to **edit** a blog post. Whether it's published or just a draft, you **have to create it** on dev.to directly. Unfortunately, dev.to does not display the ID of the blog post on the page. So once it's created, you can open your browser console and paste the following code to retrieve the blog post ID:  
-`$('div[data-article-id]').getAttribute('data-article-id')`
-
-__AVISO:__ O comando acima só funciona se o artigo estiver publicado!
-
-## How do I configure every blog post individually?
-
-A blog post has to have a [**front matter**](https://dev.to/p/editor_guide) header. You can find an example in this repository here: https://github.com/maxime1992/dev.to/blob/master/blog-posts/name-of-your-blog-post/name-of-your-blog-post.md
-
-Simple and from there you have control over the following properties: `title`, `published`, `cover_image`, `description`, `tags`, `series` and `canonical_url`.
-
-## How do I add images to my blog posts?
-
-Instead of uploading them manually on dev.to, simply put them within your git repo and within the blog post use a relative link. Here's an example: `The following is an image: ![alt text](./assets/image.png 'Title image')`.
-
-If you've got some plugin to preview your markdown from your IDE, the images will be correctly displayed. Then, on CI, right before they're published, the link will be updated to match the raw file.
-
-## How to setup CI for auto deploying the blog posts?
-
-If you want to use Github and Travis, a `.travis.yml` file has been already prepared for you.
-
-First, you have to activate the repository on Travis: https://travis-ci.org/account/repositories
-
-Then, you have to create a token on your dev.to account: https://dev.to/settings/account and set an environment variable on Travis called `DEV_TO_GIT_TOKEN` that will have the newly created token as value.
-
-## README template
-
-The following is simply a template that you may want to use for your own version of that repository.
-
 # Reinaldo Coelho's blog source
 
-https://dev.to/reinaldocoelho
+Fonte dos meus artigos publicados em <https://dev.to/reinaldocoelho>.
 
-## Blog posts
+Os artigos são escritos em Markdown neste repositório e publicados automaticamente no dev.to por um GitHub Action
+([publish-devto](https://github.com/sinedied/publish-devto), que usa o [devto-cli](https://github.com/sinedied/devto-cli)).
 
-- [Reinaldo Coelho](https://dev.to/reinaldocoelho)
+## Estrutura
+
+```text
+blog-posts/
+  <slug-do-artigo>/
+    article.md   # artigo com front matter
+    assets/      # imagens (links relativos: ./assets/imagem.png)
+    code/        # códigos de exemplo embutidos via embedme
+```
+
+Quando o exemplo merece um repositório próprio (para as pessoas clonarem ou fazerem fork sem levar os artigos), a pasta
+`code/` vira um submódulo Git, como em `blog-posts/mariadb-bluegreen/code` →
+[poc-mariadb-blue-green](https://github.com/reinaldocoelho/poc-mariadb-blue-green). Por isso, clone com
+`git clone --recurse-submodules` (ou rode `git submodule update --init` num clone existente). Para trazer alterações
+feitas no repositório do exemplo: `git submodule update --remote` e commit da nova referência.
+
+## Configuração (uma vez só)
+
+1. Gere uma API key em <https://dev.to/settings/extensions>.
+2. No GitHub: **Settings → Secrets and variables → Actions → New repository secret**, nome `DEVTO_TOKEN`.
+3. Em **Settings → Actions → General → Workflow permissions**, habilite **Read and write permissions**
+   (o Action faz commit do `id` e da `date` no front matter do artigo).
+4. Localmente: `npm install`. Para usar o CLI na máquina, crie um `.env` (já está no `.gitignore`) com `DEVTO_TOKEN=<sua-key>`.
+
+## Escrevendo um novo artigo
+
+```bash
+npm run new -- blog-posts/meu-novo-artigo/article.md
+```
+
+Edite o front matter (`title`, `description`, `tags` — no máximo 4 —, `cover_image`, `series`, `canonical_url`)
+mantendo `published: false` enquanto for rascunho.
+
+- Imagens: salve em `./assets/` e use link relativo. Na publicação o link vira
+  `https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/...` (o repositório precisa ser público).
+- Código de exemplo: salve em `./code/` e referencie com um bloco de código cuja primeira linha é o caminho do arquivo
+  (ex.: `// ./code/demo-code.ts`); `npm run embedme:write` sincroniza o conteúdo.
+
+Antes de commitar:
+
+```bash
+npm run format      # embedme + prettier
+npm run push:dry    # simula a publicação sem alterar nada no dev.to
+```
+
+## Publicando
+
+Faça push (ou merge de PR) na `main`. O workflow [publish.yml](.github/workflows/publish.yml):
+
+1. Roda `npm run check` (prettier + embedme) — também em Pull Requests.
+2. Envia ao dev.to os artigos que mudaram. Artigo sem `id` é **criado** (como rascunho se `published: false`) e o
+   `id` é gravado de volta no arquivo via commit automático.
+
+Para trocar de rascunho para publicado, basta mudar `published: true` e fazer push.
+
+Artigos com `devto_sync: false` no front matter são ignorados (ex.: o modelo `blog-posts/name-of-your-blog-post`).
+
+## Outros comandos
+
+| Comando                 | O que faz                                                       |
+| ----------------------- | --------------------------------------------------------------- |
+| `npm run push`          | Publica localmente (sem esperar o CI)                           |
+| `npm run reconcile:dry` | Simula a associação por título de artigos sem `id` já no dev.to |
+| `npm run stats`         | Estatísticas dos últimos artigos publicados                     |
+| `npm run check-updates` | Lista dependências desatualizadas                               |

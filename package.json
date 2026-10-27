@@ -1,28 +1,30 @@
 {
   "name": "dev.to",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/reinaldocoelho/dev.to.git"
   },
-  "scripts": {
-    "prettier": "prettier",
-    "embedme": "embedme blog-posts/**/*.md",
-    "prettier:base": "yarn run prettier \"**/*.{js,json,scss,md,ts,html,component.html}\"",
-    "prettier:write": "yarn run prettier:base --write",
-    "prettier:check": "yarn run prettier:base --list-different",
-    "embedme:check": "yarn run embedme --verify",
-    "embedme:write": "yarn run embedme",
-    "dev-to-git": "dev-to-git",
-    "check": "yarn run embedme:check & yarn run prettier:check",
-    "build": "yarn run embedme:write & yarn run prettier:write",
-    "install-check-updates": "npm install -g npm-check-updates",
-    "check-updates": "ncu",
-    "update-dependencies": "ncu -u"
+  "engines": {
+    "node": ">=20"
   },
-  "dependencies": {
-    "dev-to-git": "^1.4.10",
-    "embedme": "1.22.1",
-    "npm-check-updates": "^16.14.12",
-    "prettier": "3.2.4"
+  "scripts": {
+    "new": "dev new",
+    "push": "dev push \"blog-posts/**/article.md\"",
+    "push:dry": "dev push \"blog-posts/**/article.md\" --dry-run --verbose",
+    "reconcile:dry": "dev push \"blog-posts/**/article.md\" --reconcile --dry-run --verbose",
+    "stats": "dev stats",
+    "embedme:check": "embedme --verify \"blog-posts/**/*.md\"",
+    "embedme:write": "embedme \"blog-posts/**/*.md\"",
+    "prettier:check": "prettier --check \"**/*.{js,json,md,ts,yml}\"",
+    "prettier:write": "prettier --write \"**/*.{js,json,md,ts,yml}\"",
+    "check": "npm run embedme:check && npm run prettier:check",
+    "format": "npm run embedme:write && npm run prettier:write",
+    "check-updates": "npx npm-check-updates"
+  },
+  "devDependencies": {
+    "@sinedied/devto-cli": "^1.4.0",
+    "embedme": "^1.22.1",
+    "prettier": "^3.9.10"
   }
 }
