@@ -1,12 +1,13 @@
 ---
 id: 166880
 published: true
-title: 'Dá pra gerar serviço Windows/Linux com .Net?'
+title: Dá pra gerar serviço Windows/Linux com .Net?
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/da-pra-gerar-servico-windows-linux-com-dotnet/assets/topshelf.png'
-description: 'Como gerar um serviço Windows e Linux a partir do mesmo projeto .NET usando TopShelf.'
-tags: services, dotnet, topshelf
-series:
-canonical_url:
+description: Como gerar um serviço Windows e Linux a partir do mesmo projeto .NET usando TopShelf.
+tags: 'services, dotnet, topshelf'
+series: null
+canonical_url: null
+date: '2019-09-09T01:49:18Z'
 ---
 
 Recentemente tive a necessidade de manter um código de serviço Windows que também pudesse ser executado como um serviço no Linux.
