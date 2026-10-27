@@ -1,0 +1,66 @@
+name: mariadb-bluegreen
+
+x-mariadb: &mariadb
+  environment:
+    MARIADB_ROOT_PASSWORD: root
+    MARIADB_DATABASE: lab
+    MARIADB_USER: app
+    MARIADB_PASSWORD: app
+  healthcheck:
+    test: ['CMD', 'healthcheck.sh', '--connect', '--innodb_initialized']
+    interval: 2s
+    retries: 30
+
+services:
+  # DNS interno: resolve db.lab.internal para o primário atual (TTL de 5s)
+  dns:
+    image: coredns/coredns:1.12.1
+    command: ['-conf', '/etc/coredns/Corefile']
+    volumes:
+      - ./dns:/etc/coredns:ro
+    networks:
+      lab:
+        ipv4_address: 172.30.0.10
+
+  # Banco em produção, desatualizado
+  blue:
+    <<: *mariadb
+    image: mariadb:10.6
+    hostname: blue
+    volumes:
+      - ./conf/blue.cnf:/etc/mysql/conf.d/bluegreen.cnf:ro
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    networks:
+      lab:
+        ipv4_address: 172.30.0.11
+
+  # Banco novo, atualizado (só é iniciado no passo 2)
+  green:
+    <<: *mariadb
+    image: mariadb:11.8
+    hostname: green
+    volumes:
+      - ./conf/green.cnf:/etc/mysql/conf.d/bluegreen.cnf:ro
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    networks:
+      lab:
+        ipv4_address: 172.30.0.12
+
+  # "Aplicação": um Linux mínimo só com o cliente MariaDB (nenhum servidor aqui),
+  # gravando continuamente usando apenas o nome db.lab.internal
+  app:
+    build: ./app
+    entrypoint: ['bash', '/scripts/app-writer.sh']
+    dns: [172.30.0.10]
+    volumes:
+      - ./scripts:/scripts:ro
+    depends_on: [dns]
+    networks:
+      lab:
+        ipv4_address: 172.30.0.20
+
+networks:
+  lab:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

@@ -1,0 +1,11 @@
+[mariadb]
+server_id            = 2
+log_bin              = mariadb-bin
+relay_log            = relay-bin
+binlog_format        = ROW
+log_slave_updates    = ON
+gtid_strict_mode     = ON
+character_set_server = utf8mb4
+collation_server     = utf8mb4_general_ci
+# Nasce como réplica: só a replicação (e usuários administrativos) podem gravar
+read_only            = ON

@@ -1,0 +1,8 @@
+lab.internal {
+    hosts /etc/coredns/hosts {
+        ttl 5
+        reload 1s
+    }
+    log
+    errors
+}
