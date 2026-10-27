@@ -1,10 +1,11 @@
 ---
 title: 'Blue/Green Deployment no MariaDB: atualizando o banco com (quase) zero downtime'
 description: 'Passo a passo para atualizar versão ou estrutura de um MariaDB trocando o servidor em produção em segundos, com replicação, controle de lag, DNS e rollback.'
-tags: mariadb, database, devops, docker
+tags: 'mariadb, database, devops, docker'
 cover_image: ''
 canonical_url: null
 published: false
+id: 4930817
 ---
 
 Atualizar o banco de dados costuma ser a parte mais tensa de qualquer manutenção. Trocar a versão do MariaDB "a quente" significa parar o serviço, rodar o upgrade, torcer para tudo subir e, se algo der errado, restaurar backup com o sistema fora do ar.

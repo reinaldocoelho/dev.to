@@ -1,12 +1,13 @@
 ---
 id: 175992
 published: true
-title: 'Como monto meu ambiente Windows do Zero'
+title: Como monto meu ambiente Windows do Zero
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/como-monto-meu-ambiente-windows-do-zero/assets/top.jpg'
-description: 'Como instalar e montar sua máquina windows de forma rápida e prática logo após a formatação.'
-tags: windows, chocolatey, install
-series:
-canonical_url:
+description: Como instalar e montar sua máquina windows de forma rápida e prática logo após a formatação.
+tags: 'windows, chocolatey, install'
+series: null
+canonical_url: null
+date: '2019-09-24T21:47:50Z'
 ---
 
 Motivado pelo post do @LuizCarlosFaria:

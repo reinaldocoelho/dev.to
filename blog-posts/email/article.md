@@ -1,12 +1,13 @@
 ---
 id: 1737840
 published: true
-title: 'Entendendo definitivamente o e-mail'
+title: Entendendo definitivamente o e-mail
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/email/assets/understanding-email.png'
-description: 'Tudo que você precisa saber para entender e-mail de uma vez por todas'
+description: Tudo que você precisa saber para entender e-mail de uma vez por todas
 tags: email
-series:
-canonical_url:
+series: null
+canonical_url: null
+date: '2024-01-22T13:59:34Z'
 ---
 
 Neste artigo vou compartilhar tudo que sei a respeito de e-mails, iniciando por uma visão geral do que é, como funciona a troca de e-mails, sua estrutura e o que mais eu conseguir organizar.
