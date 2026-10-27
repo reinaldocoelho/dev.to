@@ -7,15 +7,24 @@ canonical_url: null
 published: false
 ---
 
-Atualizar o banco de dados costuma ser a parte mais tensa de qualquer manutenção. Trocar a versão do MariaDB "no lugar" significa parar o serviço, rodar o upgrade, torcer para tudo subir e, se algo der errado, restaurar backup com o sistema fora do ar.
+Atualizar o banco de dados costuma ser a parte mais tensa de qualquer manutenção. Trocar a versão do MariaDB "a quente" significa parar o serviço, rodar o upgrade, torcer para tudo subir e, se algo der errado, restaurar backup com o sistema fora do ar.
 
 Neste artigo vou mostrar como fazer isso de outro jeito: com um **Blue/Green Deployment** só com servidores MariaDB, no mesmo espírito do que a AWS faz no [RDS Blue/Green Deployments](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments-overview.html). A ideia é preparar um banco novo ao lado do atual, mantê-lo sincronizado por replicação e, na hora da troca, ficar só alguns segundos sem escrita.
 
-Para ter um caso real, vamos sair do **MariaDB 10.6**, cujo suporte terminou em julho de 2026, para o **MariaDB 11.8**, a LTS atual. Tudo roda em containers, então você consegue reproduzir na sua máquina.
+Para ter um caso real, vamos sair do **MariaDB 10.6**, cujo suporte terminou em julho de 2026, para o **MariaDB 11.8**, a LTS atual (no momento do artigo). Tudo roda em containers, então você consegue reproduzir na sua máquina.
 
-> O laboratório completo está no repositório [poc-mariadb-blue-green](https://github.com/reinaldocoelho/poc-mariadb-blue-green). Fique à vontade para clonar ou fazer fork.
+> O laboratório completo com todos os scripts do artigo estão no repositório [poc-mariadb-blue-green](https://github.com/reinaldocoelho/poc-mariadb-blue-green). Fique à vontade para clonar ou fazer fork.
+
+## Antes de começarmos
+
+Antes de começar, eu quero deixar algumas coisas pontuadas:
+
+1. Este artigo foi escrito sim com o auxilio de uma LLM, como isso tem sido alvo de muitas criticas, prefiro deixar isso declarado aqui. Porém todos os passos foram testados e validados manualmente, garantindo que funcionam conforme descrito.
+2. Para você reproduzir é necessário que tenha conhecimento no mínimo intermediário sobre Bancos de Dados e MariaDB. Se você é iniciante, recomendo estudar um pouco mais sobre esses tópicos antes de tentar seguir este artigo.
 
 ## O que é Blue/Green para banco de dados
+
+Blue/Green é uma técnica muito comum para reduzir Downtime de atualizações em aplicações críticas. Para bancos de dados é a mesma coisa, como você atualiza a versão do banco ou uma estrutura sem interromper o serviço principal.
 
 - **Blue** é o ambiente em produção, que as aplicações usam hoje.
 - **Green** é o ambiente novo, já com a versão (ou estrutura) atualizada, recebendo uma cópia contínua dos dados do blue.
@@ -208,15 +217,19 @@ docker compose up -d --wait green
 ./scripts/create-green.sh
 ```
 
-O script faz três coisas:
+O script descarta qualquer replicação anterior no green (assim ele pode ser executado de novo sem erro) e então faz três coisas:
 
 ```bash
 # ./code/scripts/create-green.sh
 
 #!/usr/bin/env bash
-# Copia os dados do blue para o green e liga a replicação blue -> green via GTID
+# Copia os dados do blue para o green e liga a replicação blue -> green via GTID.
+# Pode ser executado de novo: qualquer replicação anterior no green é descartada antes da cópia.
 source "$(dirname "$0")/lib.sh"
 mkdir -p .work
+
+step "Descartando replicação anterior no green (se houver)"
+sql green "STOP REPLICA; RESET REPLICA ALL"
 
 step "Gerando dump consistente do blue (sem lock, com a posição GTID)"
 docker compose exec -T blue mariadb-dump -uroot -p"$ROOT_PW" \
