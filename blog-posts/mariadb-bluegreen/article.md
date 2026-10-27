@@ -251,7 +251,8 @@ sql green "
     MASTER_HOST = 'blue',
     MASTER_USER = '$REPL_USER',
     MASTER_PASSWORD = '$REPL_PW',
-    MASTER_USE_GTID = slave_pos;
+    MASTER_USE_GTID = slave_pos,
+    MASTER_SSL = 0;
   START REPLICA;
 "
 sleep 2
@@ -261,7 +262,7 @@ sleep 2
 
 1. **Dump consistente do blue**: `--single-transaction` faz um snapshot sem travar as tabelas, e `--gtid --master-data=2` registra no dump a posição GTID exata desse snapshot.
 2. **Restauração no green sem gerar binlog** (`sql_log_bin = 0`): os dados do dump não são transações novas, só uma cópia. Se o green gravasse isso no binlog com o próprio `server_id`, o histórico GTID dos dois servidores divergiria e a replicação reversa do passo 5 quebraria.
-3. **Replicação a partir da posição do dump**: `gtid_slave_pos` diz ao green "já tenho tudo até aqui, me mande o resto".
+3. **Replicação a partir da posição do dump**: `gtid_slave_pos` diz ao green "já tenho tudo até aqui, me mande o resto". O `MASTER_SSL = 0` desliga o TLS na conexão de replicação: as versões 11.x do MariaDB passaram a usar TLS por padrão, e o blue (10.6) do laboratório não tem certificado. Pelo mesmo motivo, o `app` conecta com `--skip-ssl`.
 
 Repare que a replicação usa o hostname `blue`, e **não** o `db.lab.internal`. O nome DNS é das aplicações e vai mudar de lugar no switchover; a replicação precisa apontar sempre para um servidor específico.
 
@@ -407,7 +408,8 @@ sql "$old" "
     MASTER_HOST = '$new',
     MASTER_USER = '$REPL_USER',
     MASTER_PASSWORD = '$REPL_PW',
-    MASTER_USE_GTID = slave_pos;
+    MASTER_USE_GTID = slave_pos,
+    MASTER_SSL = 0;
   START REPLICA;
 "
 sleep 2
@@ -583,7 +585,7 @@ docker compose down -v
 - **Escritas são bloqueadas, leituras não.** Durante a troca, quem só lê continua funcionando no blue (agora réplica). Se a aplicação ler do primário logo após gravar, considere isso.
 - **Conexões que ignoram o DNS** (IP fixo no código, cache de DNS longo, conexões persistentes que nunca reconectam) vão continuar no blue e receber erro de read-only. O erro é bom: falhar alto é melhor que gravar no lugar errado.
 - **Um proxy simplifica a troca.** [MaxScale](https://mariadb.com/kb/en/maxscale/) ou [ProxySQL](https://proxysql.com/) podem substituir o DNS e trocar o destino sem depender de TTL. O roteiro de replicação é o mesmo.
-- **Senhas no laboratório** estão em texto puro para simplificar. Em produção, use segredos e TLS na replicação.
+- **Senhas e TLS no laboratório**: as senhas estão em texto puro e o TLS está desligado (`MASTER_SSL = 0` na replicação e `--skip-ssl` no `app`) só para simplificar. Em produção, use segredos, configure certificados nos servidores e mantenha o TLS ligado tanto na replicação quanto nas aplicações.
 
 ## Conclusão
 
