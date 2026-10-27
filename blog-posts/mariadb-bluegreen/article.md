@@ -1,5 +1,6 @@
 ---
 title: 'Blue/Green Deployment no MariaDB: atualizando o banco com (quase) zero downtime'
+cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/mariadb-bluegreen/assets/cover.webp'
 description: 'Passo a passo para atualizar versão ou estrutura de um MariaDB trocando o servidor em produção em segundos, com replicação, controle de lag, DNS e rollback.'
 tags: 'mariadb, database, devops, docker'
 cover_image: ''
