@@ -1,4 +1,5 @@
 ---
+id: 175992
 published: true
 title: 'Como monto meu ambiente Windows do Zero'
 cover_image: 'https://raw.githubusercontent.com/reinaldocoelho/dev.to/main/blog-posts/como-monto-meu-ambiente-windows-do-zero/assets/top.jpg'
