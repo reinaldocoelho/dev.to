@@ -15,6 +15,12 @@ blog-posts/
     code/        # códigos de exemplo embutidos via embedme
 ```
 
+Quando o exemplo merece um repositório próprio (para as pessoas clonarem ou fazerem fork sem levar os artigos), a pasta
+`code/` vira um submódulo Git, como em `blog-posts/mariadb-bluegreen/code` →
+[poc-mariadb-blue-green](https://github.com/reinaldocoelho/poc-mariadb-blue-green). Por isso, clone com
+`git clone --recurse-submodules` (ou rode `git submodule update --init` num clone existente). Para trazer alterações
+feitas no repositório do exemplo: `git submodule update --remote` e commit da nova referência.
+
 ## Configuração (uma vez só)
 
 1. Gere uma API key em <https://dev.to/settings/extensions>.

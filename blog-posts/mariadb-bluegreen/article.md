@@ -13,7 +13,7 @@ Neste artigo vou mostrar como fazer isso de outro jeito: com um **Blue/Green Dep
 
 Para ter um caso real, vamos sair do **MariaDB 10.6**, cujo suporte terminou em julho de 2026, para o **MariaDB 11.8**, a LTS atual. Tudo roda em containers, então você consegue reproduzir na sua máquina.
 
-> O laboratório completo está em [blog-posts/mariadb-bluegreen/code](https://github.com/reinaldocoelho/dev.to/tree/main/blog-posts/mariadb-bluegreen/code).
+> O laboratório completo está no repositório [poc-mariadb-blue-green](https://github.com/reinaldocoelho/poc-mariadb-blue-green). Fique à vontade para clonar ou fazer fork.
 
 ## O que é Blue/Green para banco de dados
 
@@ -189,7 +189,8 @@ GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'repl'@'%';
 Suba o DNS e o blue, crie a carga inicial e ligue a aplicação:
 
 ```bash
-cd blog-posts/mariadb-bluegreen/code
+git clone https://github.com/reinaldocoelho/poc-mariadb-blue-green.git
+cd poc-mariadb-blue-green
 docker compose up -d --wait dns blue
 ./scripts/seed-blue.sh
 docker compose up -d app
@@ -577,4 +578,4 @@ Com replicação GTID, um nome DNS na frente do banco e alguns cuidados no momen
 
 O RDS faz tudo isso com um clique, mas entender cada etapa ajuda a usar melhor a ferramenta gerenciada e permite aplicar o mesmo processo em servidores próprios, em Kubernetes ou em qualquer lugar onde o MariaDB rode.
 
-Se você testar o laboratório e encontrar algo diferente, comente aqui ou abra um PR no [repositório](https://github.com/reinaldocoelho/dev.to).
+Se você testar o laboratório e encontrar algo diferente, comente aqui ou abra uma issue ou um PR no [repositório do laboratório](https://github.com/reinaldocoelho/poc-mariadb-blue-green).
