@@ -208,7 +208,7 @@ docker compose logs -f app
 
 Cada linha do log mostra uma escrita aceita e em qual servidor ela foi gravada:
 
-<!-- TODO: colar aqui a saída real do `docker compose logs app` -->
+![Logs da aplicação](./assets/app-logs.png)
 
 ## Passo 2: subindo o green com replicação
 
@@ -309,7 +309,7 @@ Para ver o lag aparecendo, deixe o monitor rodando em um terminal e gere uma tra
 ./scripts/burst.sh blue          # terminal 2
 ```
 
-<!-- TODO: colar aqui a saída real do lag.sh durante o burst (lag subindo e voltando a EM DIA) -->
+![Lag durante o burst](./assets/lag-burst.png)
 
 ## Passo 3: garantindo que está tudo atualizado
 
@@ -321,7 +321,7 @@ Para conferir os dados, o `verify.sh` calcula a contagem de linhas e um checksum
 ./scripts/verify.sh
 ```
 
-<!-- TODO: colar aqui a saída real do verify.sh -->
+![Saída do verify.sh](./assets/log-verify.png)
 
 Com a aplicação gravando, os números do green podem ficar alguns milissegundos atrás. Rode de novo e eles se igualam.
 
@@ -460,7 +460,7 @@ Na prática: troca de versão sem mudança de schema, com a replicação reversa
 
 O tempo sem escrita é o intervalo entre a etapa 2 e a etapa 5, somado ao tempo que as aplicações levam para resolver o DNS de novo. Nos logs da aplicação você vê algumas linhas `FAIL` e, logo depois, as escritas voltando, agora em `green`:
 
-<!-- TODO: colar aqui o trecho real do log da app durante o switchover e o tempo medido pelo script -->
+![Log da aplicação durante o switchover](./assets/app-logs-switchover.png)
 
 Para confirmar que nenhuma escrita se perdeu:
 
@@ -489,7 +489,7 @@ Encontrou um problema de performance ou uma incompatibilidade? O caminho depende
 
 O blue volta a ser o primário, o DNS volta a apontar para ele e o green vira réplica de novo, pronto para uma nova tentativa depois da correção.
 
-<!-- TODO: colar aqui a saída real do rollback em modo reverse -->
+![Saída do rollback em modo reverse](./assets/rollback-reverse.png)
 
 **Se o blue ficou somente leitura (`readonly`)**, o rollback é uma volta de emergência: o blue é liberado para escrita do jeito que estava no momento da troca.
 
@@ -540,7 +540,7 @@ O script bloqueia as escritas no green, mostra a posição GTID em que o blue pa
 
 Depois disso, o green não serve mais como réplica, porque o histórico dele divergiu do blue. Para uma nova tentativa, recrie-o do zero a partir do passo 2.
 
-<!-- TODO: colar aqui a saída real do emergency-rollback.sh -->
+![Saída do emergency-rollback.sh](./assets/emergency-rollback.png)
 
 ### 7.2 Limpeza do ambiente
 
@@ -549,6 +549,7 @@ Se tudo correu bem, desfaça a replicação reversa (no modo `reverse`) e deslig
 ```bash
 ./scripts/cleanup.sh blue
 ```
+![Saída do cleanup.sh](./assets/cleanup.png)
 
 ```bash
 # ./code/scripts/cleanup.sh
